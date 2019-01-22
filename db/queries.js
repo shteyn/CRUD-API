@@ -1,8 +1,20 @@
 const knex = require("./knex"); //importing connection from the knex.js
 
 module.exports = {
-  getAll() {
-    return knex("sticker");
+  getAll(query) {
+    const knexQuery = knex("sticker");
+    if (query.title) {
+      knexQuery.where("title", "like", `%${query.title}%`);
+    }
+
+    if (query.description) {
+      knexQuery.where("description", "like", `%${query.description}%`);
+    }
+
+    if (query.rating) {
+      knexQuery.where("rating", `%${query.rating}%`);
+    }
+    return knexQuery;
   },
   getOne(id) {
     return knex("sticker")

@@ -19,7 +19,8 @@ validSticker = sticker => {
 };
 
 router.get("/", (req, res) => {
-  queries.getAll().then(stickers => {
+  const { title, description, rating } = req.query;
+  queries.getAll({ title, description, rating }).then(stickers => {
     res.json(stickers);
   });
 });
